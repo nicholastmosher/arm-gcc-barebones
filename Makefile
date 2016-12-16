@@ -1,10 +1,11 @@
-GCC_BIN = ../gcc-arm-none-eabi-4_7-2012q4/bin/
+GCC_PATH =
+GCC_BIN =
 PROJECT = blink
-OBJECTS = system_LPC17xx.o startup_LPC17xx.o main.o 
-SYS_OBJECTS = 
-INCLUDE_PATHS = -I. -I./LPC1768 
-LIBRARY_PATHS = 
-LIBRARIES = 
+OBJECTS = system_LPC17xx.o startup_LPC17xx.o main.o
+SYS_OBJECTS =
+INCLUDE_PATHS = -I. -I./LPC1768
+LIBRARY_PATHS = -L $(GCC_PATH)arm-none-eabi/lib/
+LIBRARIES =
 LINKER_SCRIPT = ./LPC1768/LPC1768.ld
 BUILD_DIR = build/
 
@@ -18,10 +19,10 @@ OBJCOPY = $(GCC_BIN)arm-none-eabi-objcopy
 CCLOCAL = gcc
 
 CPU = -mcpu=cortex-m3 -mthumb
-CC_FLAGS = $(CPU) -c -fno-common -fmessage-length=0 -Wall -fno-exceptions -ffunction-sections -fdata-sections -g 
+CC_FLAGS = $(CPU) -c -fno-common -fmessage-length=0 -Wall -fno-exceptions -ffunction-sections -fdata-sections -g
 CC_SYMBOLS = -DTARGET_LPC1769 -DTOOLCHAIN_GCC_ARM -DNDEBUG -D__CORTEX_M3
 
-LD_FLAGS = -mcpu=cortex-m3 -mthumb -Wl,--gc-sections,-Map=$(PROJECT).map,--cref --specs=nano.specs
+LD_FLAGS = -mcpu=cortex-m3 -mthumb -Wl,--gc-sections,-Map=$(PROJECT).map,--cref# --specs=nano.specs
 LD_SYS_LIBS = -lc -lgcc -lnosys
 
 all: $(PROJECT).bin
